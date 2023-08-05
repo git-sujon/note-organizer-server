@@ -1,21 +1,20 @@
-import express, { Router } from 'express'
+import express, { Router } from 'express';
+import { NotesRoute } from '../modules/notes/notes.route';
 
+const router = express.Router();
 
-const router = express.Router()
+type IModuleRoutes = {
+  path: string;
+  route: Router;
+};
 
-type IModuleRoutes={
-  path:string
-  route:Router
-}
+const moduleRoutes: IModuleRoutes[] = [
+  {
+    path: '/notes/',
+    route: NotesRoute,
+  },
+];
 
-const moduleRoutes:IModuleRoutes[] = [
-  // {
-  //   path: '/books/',
-  //   route: RouteName,
-  // },
-  
-]
+moduleRoutes.forEach(route => router.use(route.path, route.route));
 
-moduleRoutes.forEach(route => router.use(route.path, route.route))
-
-export default router
+export default router;

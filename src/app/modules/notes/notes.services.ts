@@ -1,7 +1,7 @@
 import { INotes } from "./notes.interface";
 import { Notes } from "./notes.model";
 
-const createNotes = async (payload: INotes) => {
+const createNote = async (payload: INotes) => {
     const result = await Notes.create(payload);
     return result;
   };
@@ -19,19 +19,19 @@ const getSingleNote = async (id: string) => {
   };
 
 
-  const updateNotes = async (id: string, payload: Partial<INotes>) => {
+  const updateNote = async (id: string, payload: Partial<INotes>) => {
     const result = await Notes.findByIdAndUpdate(id, payload);
     return result;
   };
-  const deleteNotes = async (id: string) => {
+  const deleteNote = async (id: string) => {
     const result = await Notes.findByIdAndDelete(id);
     return result;
   };
   
   export const NotesService = {
-    createNotes,
+    createNote,
     getAllNotes,
     getSingleNote,
-    updateNotes,
-    deleteNotes,
+    updateNote,
+    deleteNote,
   };
