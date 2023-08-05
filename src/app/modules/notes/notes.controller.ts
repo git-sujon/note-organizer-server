@@ -3,6 +3,9 @@ import { Request, Response } from 'express';
 import { NotesService } from './notes.services';
 import sendResponse from '../../../shared/sendResponse';
 import httpStatus from 'http-status';
+import pick from '../../../shared/pick';
+import { notesFilterableFields } from './notes.contents';
+import { paginationFieldsConstant } from '../../../constant.ts/paginationFieldsConstant';
 
 const createNoteController = catchAsync(async (req: Request, res: Response) => {
   const { ...NotesData } = req.body;
@@ -16,9 +19,18 @@ const createNoteController = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+
+
+
 const getAllNotesController = catchAsync(
   async (req: Request, res: Response) => {
-    const result = await NotesService.getAllNotes();
+
+    const filters = pick(req.query, notesFilterableFields)
+
+    const paginationOptions = pick(req.query, paginationFieldsConstant)
+
+
+    const result = await NotesService.getAllNotes(filters, paginationOptions)
 
     sendResponse(res, {
       success: true,

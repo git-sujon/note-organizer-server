@@ -18,3 +18,8 @@ export type INotes = {
 };
 
 export type NotesModel = Model<INotes, Record<string, unknown>>;
+
+export type INotesFilter = {
+    searchTerm?: string;
+  };
+  

@@ -1,3 +1,4 @@
+import { SortOrder } from 'mongoose'
 import { IGenericErrorMessage } from './error'
 
 export type IGenericResponse<T> = {
