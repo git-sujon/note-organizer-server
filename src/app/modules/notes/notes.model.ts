@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { INotes, NotesModel } from './notes.interface';
+import { privacyContent } from './notes.contents';
 
 const notesSchema = new Schema(
   {
@@ -16,7 +17,7 @@ const notesSchema = new Schema(
       userEmail: { type: String, required: true },
       userImgUrl: { type: String },
     },
-    privacy: { type: String, enum: ['Public', 'Private'], required: true },
+    privacy: { type: String, enum: privacyContent, required: true },
   },
   {
     timestamps: true,
