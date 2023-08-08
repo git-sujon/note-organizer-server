@@ -29,7 +29,9 @@ const getAllNotesController = catchAsync(
     const filters = pick(req.query, notesFilterableFields)
 
     const paginationOptions = pick(req.query, paginationFieldsConstant)
-
+    if (req.query.category) {
+      filters.category = req.query.category as string;
+    }
 
     const result = await NotesService.getAllNotes(filters, paginationOptions)
 

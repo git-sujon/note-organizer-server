@@ -11,25 +11,20 @@ const createNote = async (payload: INotes) => {
 
   const isExist = await Catagories.findOne({ title: payload?.category });
 
-  console.log('isExist:', isExist);
-
-
-  if (isExist) { 
+  if (isExist) {
     payload.category = isExist?._id;
-    console.log("in is exist", payload.category)
   } else {
-    console.log("in else",payload.category)
     categoryOptions = {
       title: payload.category,
       userInfo: {
         userEmail: payload.userinfo.userEmail,
       },
     };
-    console.log("in else",categoryOptions)
+
     const categoryResult = await Catagories.create(categoryOptions);
     payload.category = categoryResult?._id;
   }
-  console.log("out side condition",categoryOptions)
+
   const result = await Notes.create(payload);
   return result;
 };
@@ -54,6 +49,13 @@ const getAllNotes = async (
       })),
     });
   }
+
+  // if (filtersData?.category) {
+  //   andConditions.push({
+  //     category: filtersData?.category,
+  //   });
+  // }
+ 
 
   if (Object.keys(filtersData).length) {
     andConditions.push({
