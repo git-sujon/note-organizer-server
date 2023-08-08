@@ -22,6 +22,8 @@ const createNoteZodSchema = z.object({
       userEmail: z.string({
         required_error: 'User email is required',
       }),
+
+      userName: z.string().optional(),
       userImgUrl: z.string().optional(),
     }),
     privacy: z.enum([...privacyContent] as [string, ...string[]], {
@@ -46,6 +48,7 @@ const updateNoteZodSchema = z.object({
     userinfo: z
       .object({
         userEmail: z.string().optional(),
+        userName: z.string().optional(),
         userImgUrl: z.string().optional(),
       })
       .optional(),

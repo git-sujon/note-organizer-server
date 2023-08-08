@@ -6,7 +6,7 @@ const notesSchema = new Schema(
   {
     title: { type: String, required: true },
     notesDetails: { type: String, required: true },
-    category: { type: String, required: true },
+    category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
     imgUrl: { type: String },
     tags: [
       {
@@ -15,6 +15,7 @@ const notesSchema = new Schema(
     ],
     userinfo: {
       userEmail: { type: String, required: true },
+      userName: { type: String},
       userImgUrl: { type: String },
     },
     privacy: { type: String, enum: privacyContent, required: true },

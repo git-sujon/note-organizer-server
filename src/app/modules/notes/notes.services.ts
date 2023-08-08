@@ -1,11 +1,35 @@
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { ISortCondition } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
+import { Catagories } from '../category/category.model';
 import { notesSearchableFields } from './notes.contents';
 import { INotes, INotesFilter } from './notes.interface';
 import { Notes } from './notes.model';
 
 const createNote = async (payload: INotes) => {
+  let categoryOptions = {};
+
+  const isExist = await Catagories.findOne({ title: payload?.category });
+
+  console.log('isExist:', isExist);
+
+
+  if (isExist) { 
+    payload.category = isExist?._id;
+    console.log("in is exist", payload.category)
+  } else {
+    console.log("in else",payload.category)
+    categoryOptions = {
+      title: payload.category,
+      userInfo: {
+        userEmail: payload.userinfo.userEmail,
+      },
+    };
+    console.log("in else",categoryOptions)
+    const categoryResult = await Catagories.create(categoryOptions);
+    payload.category = categoryResult?._id;
+  }
+  console.log("out side condition",categoryOptions)
   const result = await Notes.create(payload);
   return result;
 };
@@ -75,6 +99,8 @@ const deleteNote = async (id: string) => {
   const result = await Notes.findByIdAndDelete(id);
   return result;
 };
+
+// GET ALL CATAGORIES
 
 export const NotesService = {
   createNote,

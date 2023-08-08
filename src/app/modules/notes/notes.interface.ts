@@ -3,7 +3,7 @@ import { Model, Types } from 'mongoose';
 export type INotes = {
   title: string;
   notesDetails: string;
-  category: string;
+  category: Types.ObjectId;
   imgUrl: string;
   tags:[
     {
@@ -12,9 +12,10 @@ export type INotes = {
   ]
   userinfo: {
     userEmail: string;
+    userName: string;
     userImgUrl:string;
   };
-  privacy:'Public' | 'private'
+  privacy:'Public' | 'Private'
 };
 
 export type NotesModel = Model<INotes, Record<string, unknown>>;

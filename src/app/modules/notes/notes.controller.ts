@@ -9,7 +9,8 @@ import { paginationFieldsConstant } from '../../../constant.ts/paginationFieldsC
 
 const createNoteController = catchAsync(async (req: Request, res: Response) => {
   const { ...NotesData } = req.body;
-
+ 
+  
   const result = await NotesService.createNote(NotesData);
 
   sendResponse(res, {
